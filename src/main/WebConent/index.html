@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Pagination example</title>
+</head>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+<body>
+<table id="users_table_id">
+
+
+</table>
+<button onclick="getEmployees()">Get users</button>
+<input id="page_size_id" placeholder="Enter page size" type="number" value="10">
+<div id="pageable_div_id"></div>
+<script>
+
+   /*
+    var defaultPageNumber = 0, defaultSortingField = 'id', defaultSortingDirection = 'DESC';
+    var previousPage, nextPage, sortingDirection = 'DESC', sortingField = 'id', currentPage;
+
+    function displayPageable(pageable, totalElements, totalPages) {
+        previousPage = pageable.pageNumber - 1;
+        if (previousPage < 0) {
+            previousPage = 0;
+        }
+        nextPage = pageable.pageNumber + 1;
+        if (nextPage > totalPages) {
+            nextPage = totalPages;
+        }
+        var html = '<button onclick="getEmployees(\'' + previousPage + '\',\'' + defaultSortingField + '\',\'' + defaultSortingDirection + '\')">Previous</button>' +
+            '<button onclick="getEmployees(\'' + nextPage + '\',\'' + defaultSortingField + '\',\'' + defaultSortingDirection + '\')">Next</button>' +
+            '<br><span>' + pageable.offset + ' of ' + totalElements + ' elements</span>';
+        document.getElementById("pageable_div_id").innerHTML = html;
+    }
+
+    function sort(sortField) {
+        if (sortingDirection === 'ASC') {
+            sortingDirection = 'DESC';
+        } else {
+            sortingDirection = 'ASC';
+        }
+        getEmployees(currentPage, sortField, sortingDirection);
+    }
+
+*/
+    function getEmployees(pageNumber, sortingField, sortingDirection) {
+        var pageSize = document.getElementById("page_size_id").value;
+        if (pageNumber == null) {
+            pageNumber = defaultPageNumber;
+        }
+        if (sortingField == null) {
+            sortingField = defaultSortingField;
+        }
+        if (sortingDirection == null) {
+            sortingDirection = defaultSortingDirection
+        }
+
+        $.get("http://localhost:8080/getEmployees?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&sortingField=" + sortingField + "&sortingDirection=" + sortingDirection, function (data, status) {
+            console.log(data);
+          
+           /*
+            var html = '<tr>\n' +
+                '        <th onclick="sort(\'' + 'id' + '\')">Id</th>\n' +
+                '        <th onclick="sort(\'' + 'firstName' + '\')">Firt Name</th>\n' +
+                '        <th onclick="sort(\'' + 'lastName' + '\')">Last Name</th>\n' +
+                '        <th onclick="sort(\'' + 'emailId' + '\')">Email</th>\n' +
+                '    </tr>';
+
+            for (var i = 0; i < data.content.length; i++) {
+                html = html + '<tr>\n' +
+                    '        <td>' + data.content[i].id + '</td>\n' +
+                    '        <td>' + data.content[i].firstName + '</td>\n' +
+                    '        <td>' + data.content[i].lastName + '</td>\n' +
+                    '        <td>' + data.content[i].emailId + '</td>\n' +
+                    '    </tr>';
+            }
+            document.getElementById("users_table_id").innerHTML = html;
+            displayPageable(data.paginationResult, data.paginationResult.totalElements, data.totalPages);
+            currentPage = data.number;
+            */
+        });
+    }
+
+</script>
+</body>
+</html>
